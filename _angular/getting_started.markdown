@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  "Welcome to Jekyll!"
+layout: angular
+title:  "Welcome to Angular!"
 date:   2020-06-06 12:40:34 -0400
-categories: jekyll update
+categories: angular getting started
 ---
 
 # Posts
