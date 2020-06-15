@@ -61,4 +61,30 @@ This can also be replaced by `template` and write `Markup` code in there. Refer 
 
 You can add `reference to style.css` where you can style the html components
 
-Try adding more content to the `component` and render them on the UI
+## Hooks
+
+These are methods which run at various stages on the screen. Just going to add the most widely used on the scripts
+
+### ngOnInIt
+
+Runs when the `component is loading`. You want to do some operations on the page load this is method to do this. You need to implement the interface 
+
+
+### ngDestroy
+
+Runs when you leave the component
+
+{% highlight typescript %}
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'demo-app';
+
+  ngOnInit() {
+    console.log('Initializing the Page')
+  }
+
+  ngOnDestroy() {
+    console.log('Destroying the Page')
+  }
+
+}
+{% endhighlight %}
