@@ -45,11 +45,11 @@ export class UserDataService {
 
 {% endhighlight %}
 
-`@Injectable` annotation tells that class is part of the `dependency injection`
+`@Injectable` annotation tells that the class is part of the `dependency injection`
 
 The Service can get details for `User` from a mock data, API call
 
-__providedIn__ a single instance is created the Service, any class which asks for it Angular Injects it.
+__providedIn__, provides a single instance of Service, any class which asks for it Angular Injects it.
 
 Below is the example of component injecting the service.
 
