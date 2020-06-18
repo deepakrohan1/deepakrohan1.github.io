@@ -21,6 +21,7 @@ __bootstrap__ the main application view, has the `root component` -> app compone
 
 
 [More on Modules][on-modules]
+
 [on-modules]: https://angular.io/guide/architecture-modules
 
 {% highlight typescript %}
