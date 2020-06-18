@@ -114,5 +114,80 @@ getUserData(): void {
 
 [Sample API][sample-api]
 
-[sample-api]: 
+[sample-api]: https://4xsgtpbbni.execute-api.us-east-1.amazonaws.com/prod/
 
+___Ex___
+
+Use the above API req to get users from the API
+
+{% highlight typescript %}
+ 
+ ## Service
+ getUserData() {
+    return this.httpClient.get('https://4xsgtpbbni.execute-api.us-east-1.amazonaws.com/prod/', {responseType: 'json'});
+  }
+
+  ## component
+
+  userDetails: any;
+
+  ngOnInit() {
+    console.log('Initializing the Page')
+    this.userDtService.getUserData().subscribe(res => {
+        console.log("AppComponent -> ngOnInit -> res", res['body']);
+        this.userDetails = JSON.parse(res['body']);
+
+    }, err => {
+    console.log("AppComponent -> ngOnInit -> err", err);
+      
+    });
+
+  }
+
+{% endhighlight %}
+
+## Designing the view
+
+{% highlight html %}
+
+  <div *ngFor = "let user of userDetails">
+    <h3>{ {user.name} }</h3>
+    <span>{ {user.email} }</span> <br/>
+    <span>{ {user.phone} }</span>
+  </div>
+
+#-> 
+___Amina Brekke___
+Matilda97@gmail.com
+(405) 653-7537
+
+___Clay Sawayn___
+Imani_Haley18@hotmail.com
+828.465.1540
+{% endhighlight %}
+
+CONTD ... Please proceed with showing other components of data on screen
+
+## Directives
+
+Most Commonly Used
+
+`*ngFor`
+
+Looping of data on the screen, table esp.
+
+`*ngIf`
+
+Adding condtional logic to screen elements
+
+`*` represents they are __Structural Directives__
+
+For More refer below link
+
+[Structural Directives][st-dir]
+
+[st-dir]: https://angular.io/guide/structural-directives
+
+## Directives
+
+We have our own custom implementation Directives, you can handle a field to take always number by adding `HostListeners` and checking `key codes`
