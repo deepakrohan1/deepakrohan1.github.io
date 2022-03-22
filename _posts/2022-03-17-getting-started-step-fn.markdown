@@ -2,7 +2,7 @@
 layout: post
 title:  "Step Function Phase 1"
 date:   2022-17-03 12:40:34 -0400
-categories: Step Function, AWS, state machine
+categories: Step Function
 ---
 
 A step function is constructed using the AWS State Language
