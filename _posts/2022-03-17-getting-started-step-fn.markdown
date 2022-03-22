@@ -161,3 +161,85 @@ Simple Example
 }
 ```
 Catch block runs if there are only catch blocks present with exception or if the retry block has still completed with exceptions
+
+
+## Buying a products Lambda
+
+
+```python
+import json
+import logging
+from aws_lambda_powertools.event_handler import APIGatewayRestResolver
+import boto3
+from datetime import datetime
+
+client = boto3.client("stepfunctions")
+app = APIGatewayRestResolver()
+logging.basicConfig(level=logging.INFO)
+
+
+@app.route("/products", method=["POST"])
+def create_product():
+    products = app.current_event.json_body
+   
+
+    client.start_execution(
+        stateMachineArn='<STEP_FN_ARN>',
+        name='ASLExecution' + datetime.now().strftime("%Y%m%d%H%M%S"),
+        input=json.dumps({"products": products})
+    )
+    return {"products": products}
+```
+
+## Step Function to process each incoming item from user
+
+```python
+def lambda_handler(event, context):
+ # get queue of products from event
+    products_queue = event["products"] 
+
+ # pop the first product
+    product = products_queue.pop(0)
+    print("product: ", product)
+
+ # make a post request to the api with the product
+    response = requests.post("<API>", json=product)
+
+    data = response.json()
+    print("response: ", data)
+ # check to see if error response
+    if response.status_code != 200:
+        return response.text
+
+ # return the response
+    return {
+        "remainder": {
+            "products": products_queue,
+            "products_count": len(products_queue),
+            # get id from resoponse
+            "id": response.json()["body"]["id"]
+        }
+    }
+```
+
+## Working with the status of your product
+
+```python
+def lambda_handler(event, context):
+    products_left = event['products']
+    id = event['response']
+
+    # send the request out to api for status
+    response = requests.get(
+        "<API>/{id}",
+    )
+
+    # if the status is 200 or 201
+    if response.status_code == 200:
+        data = json.loads(response.json()["body"])
+        return data["complete"]
+
+    else:
+        raise Exception("Something went wrong")
+```
+
