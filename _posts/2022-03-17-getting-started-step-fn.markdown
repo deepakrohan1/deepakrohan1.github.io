@@ -11,7 +11,7 @@ A step function is constructed using the AWS State Language
 * Structure
 
 ```json
-{
+{gs
 "Comment": "A hello world application",
 "StartAt": "HelloWorld",
 "States": {
